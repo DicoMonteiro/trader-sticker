@@ -43,9 +43,3 @@ jobs:
       with:
         name: web-reports
         path: logs
-    - name: Test Reporter
-      uses: dorny/test-reporter@v1.5.0
-      with:
-        name: WEB Tests Results
-        path: logs/output.xml
-        reporter: java-junit
