@@ -21,4 +21,5 @@ To clone and run this application, you'll need [Git](https://git-scm.com). Follo
 
 ## :information_source: How To Execute
 
-[x] robot -d ./logs tests/# trader-sticker
+[x] chmod +x run.bat
+[X] ./run.bat
