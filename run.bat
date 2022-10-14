@@ -1,1 +1,1 @@
-robot -d ./logs -v BROWSER:chromium -v HEADLESS:True tests
+robot -x xunit.xml -d ./logs -v BROWSER:chromium -v HEADLESS:True tests
