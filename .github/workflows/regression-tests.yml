@@ -33,14 +33,26 @@ jobs:
         pip install robotframework-browser
     - name: Run Browser Init
       run: rfbrowser init
-    - name: Run WEB Tests
-      run: |
-        chmod +x ./run.bat
-        ./run.bat
-    - name: Publish Test Results
-      uses: EnricoMi/publish-unit-test-result-action@v2
+    - name: Execute tests
+      uses: joonvena/robotframework-docker-action@v1.0
+    - name: Upload test results
+      uses: actions/upload-artifact@v1
       if: always()
       with:
-        files: "logs/*.xml"
-        report_individual_runs: "true"
-        check_name: "l1 Test Results"
+        name: reports
+        path: reports
+    
+  generate_report:
+        if: always()
+        needs: [web_tests] 
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v2
+        - name: Download reports
+          uses: actions/download-artifact@v1
+          with:
+            name: reports
+        - name: Send report to commit
+          uses: joonvena/robotframework-reporter-action@v2.1
+          with:
+            gh_access_token: ${{ secrets.GITHUB_TOKEN }}
