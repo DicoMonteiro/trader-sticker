@@ -37,15 +37,10 @@ jobs:
       run: |
         chmod +x ./run.bat
         ./run.bat
-    - name: Upload WEB Tests Results
-      uses: actions/upload-artifact@v2.3.1
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v2
       if: always()
       with:
-        name: web-reports
-        path: logs
-    - name: Test Reporter
-      uses: dorny/test-reporter@v1.5.0
-      with:
-        name: WEB Tests Results
-        path: logs/xunit.xml
-        reporter: java-junit
+        files: "logs/xunit.xml"
+        report_individual_runs: "true"
+        check_name: "Publish Test Results"
