@@ -44,7 +44,7 @@ jobs:
         name: web-reports
         path: logs
     - name: Download reports
-      uses: actions/download-artifact@v2.3.1
+      uses: actions/download-artifact@v1
       with:
         name: logs
     - name: Send report to commit
