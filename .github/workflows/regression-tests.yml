@@ -44,9 +44,9 @@ jobs:
         name: web-reports
         path: logs
     - name: Download reports
-      uses: actions/download-artifact@v1
+      uses: actions/download-artifact@v2.3.1
       with:
-        name: reports
+        name: logs
     - name: Send report to commit
       uses: joonvena/robotframework-reporter-action@v2
       with:
