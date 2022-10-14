@@ -38,16 +38,24 @@ jobs:
         chmod +x ./run.bat
         ./run.bat
     - name: Upload WEB Tests Results
-      uses: actions/upload-artifact@v2.3.1
+      uses: actions/upload-artifact@v1
       if: always()
       with:
-        name: web-reports
-        path: logs
-    - name: Download reports
-      uses: actions/download-artifact@v1
-      with:
-        name: logs
-    - name: Send report to commit
-      uses: joonvena/robotframework-reporter-action@v2
-      with:
-        gh_access_token: ${{ secrets.GITHUB_TOKEN }}
+        name: reports
+        path: reports
+        
+        
+  generate_report:
+        if: always()
+        needs: [web_tests] 
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v2
+        - name: Download reports
+          uses: actions/download-artifact@v1
+          with:
+            name: reports
+        - name: Send report to commit
+          uses: joonvena/robotframework-reporter-action@v2.1
+          with:
+            gh_access_token: ${{ secrets.GITHUB_TOKEN }}
